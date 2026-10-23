@@ -1,0 +1,22 @@
+# Operating system and local editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Frontend dependencies and build outputs
+frontend/node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo
+
+# Go build, test, coverage, and profiling outputs
+backend/kibi
+backend/backend
+backend/*.test
+backend/coverage.out
+coverage.out
+*.prof

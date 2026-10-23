@@ -1,0 +1,15 @@
+[
+  {
+    "id": "dev-local",
+    "name": "Development (local)",
+    "endpoint": "http://localhost:9200",
+    "environment": "development"
+  },
+  {
+    "id": "prod-local",
+    "name": "Production (local)",
+    "endpoint": "http://localhost:9201",
+    "environment": "production"
+  }
+]
+
