@@ -30,6 +30,36 @@ run `make seed`. The operation is idempotent for the bundled document IDs.
 Kibi is not an identity provider. Elasticsearch always decides whether the
 currently signed-in user may perform a request.
 
+## Screenshots
+
+### Cluster overview
+
+One workbench can surface health, index and shard counts, connected user,
+Elasticsearch compatibility details, and quick paths into operational views.
+
+![Kibi cluster overview](docs/screenshots/overview.jpg)
+
+### Index workspace
+
+Open an index to inspect its mapping, settings, aliases, statistics, and
+documents with a scoped Query DSL browser.
+
+![Kibi index workspace](docs/screenshots/index-workspace.jpg)
+
+### Search response, your way
+
+Search results can be read as expandable documents or switched to the complete
+Elasticsearch JSON response when debugging needs the exact payload.
+
+![Kibi raw search response](docs/screenshots/search-raw-json.jpg)
+
+### REST console
+
+Use ready-made recipes or run a JSON Elasticsearch request directly against the
+selected cluster with its native credentials and production safeguards.
+
+![Kibi REST console](docs/screenshots/rest-console.jpg)
+
 ## Run locally
 
 Prerequisites: Docker, Go 1.22+, and Node.js 20+.

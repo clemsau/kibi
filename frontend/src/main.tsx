@@ -73,7 +73,7 @@ function DocumentResults({ hits }: { hits: any[] }) { return <div className="res
 const restExamples = [
   { label: 'Cluster health', method: 'GET', path: '/_cluster/health', body: '' },
   { label: 'List indices', method: 'GET', path: '/_cat/indices?format=json&bytes=mb', body: '' },
-  { label: 'Products search', method: 'POST', path: '/products/_search', body: '{\n  "query": { "match": { "category": "coffee" } },\n  "size": 10\n}' },
+  { label: 'Products search', method: 'POST', path: '/products/_search', body: '{\n  "query": { "match": { "category": "accessories" } },\n  "size": 10\n}' },
   { label: 'Node JVM and disk stats', method: 'GET', path: '/_nodes/stats/jvm,fs', body: '' },
 ]
 
