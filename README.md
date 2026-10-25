@@ -19,12 +19,12 @@ credential only in its server-side session.
   key.
 - See cluster health, compatibility details, node roles and resource pressure.
 - Inspect indices, mappings, settings, aliases, document counts, and storage.
-- Follow primary and replica shards, including their placement and recovery
-  state.
+- Follow primary and replica shards in a node placement map, including
+  recovery and unassigned state.
 - Run Query DSL searches with readable expandable documents or the raw
   Elasticsearch response.
-- Use a REST console for operational Elasticsearch requests, with production
-  confirmation for mutating calls.
+- Use a REST console with searchable operational recipes, browser-local history
+  and favourites, and production confirmation for mutating calls.
 - Create, replace, partially update, or delete individual documents from an
   index workspace, again with a production guardrail.
 
