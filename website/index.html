@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kibi is a lightweight multi-cluster Elasticsearch workbench.">
+  <meta name="theme-color" content="#0b1019">
+  <title>Kibi — Elasticsearch workbench</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="#top"><b>K</b> Kibi</a>
+    <nav><a href="#features">Features</a><a href="#screenshots">Screenshots</a><a href="#install">Install</a></nav>
+    <a class="github" href="https://github.com/clemsau/kibi">GitHub ↗</a>
+  </header>
+  <main id="top">
+    <section class="hero">
+      <div>
+        <p class="eyebrow"><i></i> Elasticsearch 8+ workbench</p>
+        <h1>One focused place<br>for every cluster.</h1>
+        <p class="intro">Kibi is the lightweight Elasticsearch back office for teams building search products—not dashboards. Move between clusters, inspect operations, run requests, and keep Elasticsearch in charge of access.</p>
+        <p class="actions"><a class="button primary" href="#install">Get started →</a><a class="button" href="#features">Explore features</a></p>
+        <dl><div><dt>Native auth</dt><dd>Basic & API key</dd></div><div><dt>Topology</dt><dd>Many ES clusters</dd></div><div><dt>Focus</dt><dd>Search operations</dd></div></dl>
+      </div>
+      <figure class="hero-shot"><div class="window"><i></i><i></i><i></i><span>kibi / development</span></div><img src="assets/overview.jpg" alt="Kibi cluster overview"></figure>
+    </section>
+    <section class="statement">
+      <p class="eyebrow">Built for search engineering</p>
+      <h2>All the Elasticsearch surfaces you use. None of the product bloat you do not.</h2>
+      <p>Kibi keeps everyday operational tools close: cluster health, nodes, indices, shards, document search, raw JSON, and a practical REST console.</p>
+    </section>
+    <section class="features" id="features">
+      <article class="wide"><span>01</span><div><p class="eyebrow">Multi-cluster</p><h3>Switch context, not applications.</h3><p>Register the Elasticsearch endpoints your Kibi server can reach. Each person connects with their own Elasticsearch identity and can switch clusters without losing their flow.</p></div><div class="clusters"><p><i></i> Development</p><p><i class="orange"></i> Production</p><p><i class="grey"></i> Staging</p></div></article>
+      <article><span>02</span><p class="eyebrow">Operate with clarity</p><h3>See cluster shape at a glance.</h3><p>Index and document counts, storage, masters, compatibility information, node pressure, and shard health sit where you need them.</p></article>
+      <article><span>03</span><p class="eyebrow">Native Elasticsearch security</p><h3>Keep identity where it belongs.</h3><p>Use a native username and password or an Elasticsearch API key. Kibi passes that identity through; Elasticsearch still decides every permission.</p></article>
+      <article><span>04</span><p class="eyebrow">Production guardrails</p><h3>Useful when things are serious.</h3><p>Mutating document and REST requests against production-labelled clusters require explicit confirmation.</p></article>
+    </section>
+    <section class="story" id="screenshots">
+      <div><p class="eyebrow">Inspect and act</p><h2>Understand shard placement before you change anything.</h2><p>The shard map makes primaries, replicas, relocation, and unassigned copies visible by node. Drill into raw detail when an operational question needs more context.</p><a href="https://github.com/clemsau/kibi#screenshots">See the product screenshots →</a></div>
+      <img src="assets/index-workspace.jpg" alt="Kibi index workspace">
+    </section>
+    <section class="query">
+      <div><p class="eyebrow">Query with confidence</p><h2>Readable documents or the exact response.</h2></div>
+      <p>Search Query DSL results as expandable documents, switch to raw JSON for precise debugging, or use the REST console for direct Elasticsearch APIs.</p>
+      <img src="assets/search-raw-json.jpg" alt="Kibi raw Elasticsearch JSON response">
+    </section>
+    <section class="rest">
+      <pre><small>●  ●  ●  REST console</small><b>POST</b> /_search
+
+{
+  "size": 20,
+  "query": { "match_all": {} }
+}
+
+<em>✓ request recorded in local query history</em></pre>
+      <div><p class="eyebrow">REST without starting from blank</p><h2>Recipes for the requests engineers actually run.</h2><p>Browse searchable examples for health, allocation, mappings, node statistics, aggregations, document operations, and more. Save favourites and revisit browser-local history per cluster.</p></div>
+    </section>
+    <section class="install" id="install">
+      <div class="install-copy"><p class="eyebrow">Installation</p><h2>Run Kibi your way.</h2><p>Kibi works locally against local or remote Elasticsearch clusters today. A single-container team deployment and desktop packages are the next distribution milestone.</p></div>
+      <div class="cards">
+        <article class="available"><small>● Available now</small><h3>Developer setup</h3><p>Run Kibi from source with a seeded Elasticsearch 8 development cluster.</p><pre>make up
+make api
+make web</pre><a href="https://github.com/clemsau/kibi#use-it-locally">Read local setup →</a></article>
+        <article><small>● Next up</small><h3>Team server</h3><p>One compact Kibi service, configured with many reachable Elasticsearch endpoints and placed behind your internal HTTPS access layer.</p><ul><li>Single container image</li><li>Remote cluster catalogue</li><li>Secure server sessions</li></ul></article>
+        <article><small>● Planned</small><h3>Desktop app</h3><p>A self-contained Kibi application for local use—no Go, Node, or development server needed.</p><ul><li>macOS DMG + Homebrew</li><li>Windows MSI</li><li>Linux packages</li></ul></article>
+      </div>
+    </section>
+    <section class="cta"><div><p class="eyebrow">Kibi is just getting started</p><h2>Make Elasticsearch operations feel lighter.</h2></div><a class="button primary" href="https://github.com/clemsau/kibi">Explore Kibi on GitHub ↗</a></section>
+  </main>
+  <footer><a class="brand" href="#top"><b>K</b> Kibi</a><p>Lightweight Elasticsearch workbench for search engineering teams.</p><a href="https://github.com/clemsau/kibi">GitHub ↗</a></footer>
+</body>
+</html>

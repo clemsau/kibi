@@ -147,3 +147,9 @@ docs/        Product direction and screenshots
 
 Development notes and longer-term direction live in
 [docs/product-direction.md](docs/product-direction.md).
+
+## Website
+
+The public product website lives in [website](website/). It is a zero-build
+static site ready for Cloudflare Pages; see [website/README.md](website/README.md)
+for the Git-connected deployment settings.
