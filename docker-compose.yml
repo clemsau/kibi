@@ -37,6 +37,6 @@ services:
       elasticsearch-dev:
         condition: service_healthy
     volumes:
-      - ./config/seed-dev.sh:/seed-dev.sh:ro
-    entrypoint: ["/bin/sh", "/seed-dev.sh"]
+      - ./dev/seed-elasticsearch.sh:/seed-elasticsearch.sh:ro
+    entrypoint: ["/bin/sh", "/seed-elasticsearch.sh"]
     restart: "no"

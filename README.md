@@ -1,40 +1,42 @@
 # Kibi
 
-Kibi is a lightweight, multi-cluster Elasticsearch workbench for teams that use
-Elasticsearch primarily as an application search engine. One Kibi server stores
-a catalogue of clusters; users sign in to each cluster with their own native
-Elasticsearch credentials.
+**A lightweight, multi-cluster Elasticsearch workbench.**
 
-## Vertical slice
+Kibi is for teams that use Elasticsearch as part of their product and want a
+fast operational interface without deploying a full Kibana instance beside
+every cluster. Run one Kibi server, register the clusters it can reach, and
+move between them from a single focused UI.
 
-The initial implementation supports:
+Kibi deliberately keeps authentication native: each person connects to a
+cluster with that cluster's Elasticsearch username/password or API key.
+Elasticsearch remains the authority for permissions, and Kibi keeps the
+credential only in its server-side session.
 
-- Two local Elasticsearch 8 clusters (development and production).
-- Server-side credential pass-through with memory-only per-cluster sessions.
-- Cluster, node, index, shard, mapping, settings, aliases, and storage inspection.
-- An index workspace with a scoped document browser and raw mapping/settings views.
-- Query DSL search with both expandable documents and a complete raw JSON response.
-- Guarded single-document create/replace and delete, including production
-  confirmation and session audit events.
-- A focused REST console with cluster/search/node examples. It accepts only
-  Elasticsearch paths on the selected cluster and requires `PRODUCTION` for
-  mutating requests against a production-labelled cluster.
+## What you can do
 
-`make up` also seeds the development cluster with `products`, `customers`,
-`orders`, and `support_tickets`, including mappings, an alias, and realistic
-sample documents. The production cluster intentionally remains empty.
+- Work across many Elasticsearch 8+ clusters from one Kibi deployment.
+- Sign in per cluster using native Basic authentication or an Elasticsearch API
+  key.
+- See cluster health, compatibility details, node roles and resource pressure.
+- Inspect indices, mappings, settings, aliases, document counts, and storage.
+- Follow primary and replica shards, including their placement and recovery
+  state.
+- Run Query DSL searches with readable expandable documents or the raw
+  Elasticsearch response.
+- Use a REST console for operational Elasticsearch requests, with production
+  confirmation for mutating calls.
+- Create, replace, partially update, or delete individual documents from an
+  index workspace, again with a production guardrail.
 
-To add or restore that sample data on an already-running development cluster,
-run `make seed`. The operation is idempotent for the bundled document IDs.
-
-Kibi is not an identity provider. Elasticsearch always decides whether the
-currently signed-in user may perform a request.
+Kibi is intentionally not an identity provider and does not replace
+Elasticsearch security. It is a focused back-office interface for the APIs
+your search-engineering team already uses.
 
 ## Screenshots
 
 ### Cluster overview
 
-One workbench can surface health, index and shard counts, connected user,
+One workbench surfaces health, index and shard counts, connected user,
 Elasticsearch compatibility details, and quick paths into operational views.
 
 ![Kibi cluster overview](docs/screenshots/overview.jpg)
@@ -55,35 +57,93 @@ Elasticsearch JSON response when debugging needs the exact payload.
 
 ### REST console
 
-Use ready-made recipes or run a JSON Elasticsearch request directly against the
-selected cluster with its native credentials and production safeguards.
+Run a JSON Elasticsearch request against the selected cluster with native
+credentials and production safeguards.
 
 ![Kibi REST console](docs/screenshots/rest-console.jpg)
 
-## Run locally
+## Use it locally
 
 Prerequisites: Docker, Go 1.22+, and Node.js 20+.
 
 ```sh
-make up
-make api
-make web
+make up       # starts local development and production Elasticsearch 8 clusters
+make api      # starts Kibi's Go API on http://localhost:8080
+make web      # starts the Vite UI on http://localhost:5173
 ```
 
-Open `http://localhost:5173`. The local development cluster uses
-`elastic` / `changeme-dev`; the local production cluster uses `elastic` /
-`changeme-prod`.
+Open [http://localhost:5173](http://localhost:5173), select **Development
+(local)**, and sign in with `elastic` / `changeme-dev`. The development
+environment is seeded with a small catalog, customer, order, and support-ticket
+dataset so every view has meaningful data. The bundled production cluster is
+kept empty and uses `elastic` / `changeme-prod`.
 
-The API listens on `http://localhost:8080` by default. Default clusters are local only;
-for a real deployment, pass `KIBI_CLUSTERS` as a JSON array using the shape in
-[config/clusters.example.json](config/clusters.example.json). The Kibi server
-must be able to reach those Elasticsearch endpoints over the private network or
-VPN.
+To restore the local sample data after the cluster is already running:
 
-Run `make build` to compile the backend and frontend.
+```sh
+make seed
+```
 
-On some macOS Go installations, the default linker produces a binary that the
-system loader rejects. `make api` uses Go's external linker to avoid that issue.
+To stop the local Elasticsearch services:
 
-The complete product direction is in
+```sh
+make down
+```
+
+`make build` compiles both applications. On some macOS Go installations, the
+external linker used by the Makefile avoids a system-loader issue.
+
+## Connect remote clusters
+
+Kibi's API server must have network access to every registered Elasticsearch
+endpoint, normally through a private network or VPN. Give the server its
+catalogue through `KIBI_CLUSTERS`:
+
+```sh
+export KIBI_CLUSTERS='[
+  {
+    "id": "search-production",
+    "name": "Search production",
+    "endpoint": "https://es-prod.example.internal:9200",
+    "environment": "production"
+  },
+  {
+    "id": "search-staging",
+    "name": "Search staging",
+    "endpoint": "https://es-staging.example.internal:9200",
+    "environment": "development"
+  }
+]'
+make api
+```
+
+Use [config/clusters.example.json](config/clusters.example.json) as a complete
+starting shape. Users choose a cluster and authenticate directly against it;
+their access in Kibi is therefore constrained by the Elasticsearch roles,
+users, and API keys you already manage.
+
+For a shared deployment, host the API and compiled frontend behind your normal
+internal ingress. Set `KIBI_COOKIE_SECURE=true` when serving HTTPS. Kibi's
+session storage is currently memory-only, so credentials disappear when the API
+process restarts and deployments should use a single API instance until shared
+session storage is introduced.
+
+## Technology
+
+- Go standard library HTTP API and Elasticsearch REST proxy
+- React + TypeScript + Vite frontend
+- Elasticsearch 8.x for the local demo environment
+- Docker Compose for local infrastructure
+
+## Repository layout
+
+```text
+backend/     Go API and its tests
+frontend/    React workbench
+config/      Deployable cluster-catalogue examples
+dev/         Local-only Elasticsearch demo tooling
+docs/        Product direction and screenshots
+```
+
+Development notes and longer-term direction live in
 [docs/product-direction.md](docs/product-direction.md).
