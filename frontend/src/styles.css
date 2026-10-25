@@ -53,7 +53,9 @@ label { display: grid; gap: 7px; color: #bbc5d4; font-size: 12px; } input, texta
 /* Shard placement map */
 .shard-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .shards-page > .page { padding: 0; max-width: none; }
-.shard-map-wrap { overflow: auto; border: 1px solid #273043; border-radius: 7px; }
+.workspace, .page, .panel, .shards-page, .shards-page > * { min-width: 0; }
+.shards-page { width: 100%; }
+.shard-map-wrap { width: 100%; max-width: 100%; overflow: auto; border: 1px solid #273043; border-radius: 7px; }
 .shard-map { min-width: max-content; width: 100%; border-collapse: collapse; font-size: 12px; }
 .shard-map th, .shard-map td { min-width: 116px; padding: 10px 12px; border-right: 1px solid #273043; border-bottom: 1px solid #273043; text-align: left; vertical-align: middle; }
 .shard-map thead th { position: sticky; top: 0; z-index: 1; background: #111722; color: #dce5f4; }
