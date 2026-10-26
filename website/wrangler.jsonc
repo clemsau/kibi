@@ -1,0 +1,8 @@
+{
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "kibi",
+  "compatibility_date": "2026-10-26",
+  "assets": {
+    "directory": "."
+  }
+}
